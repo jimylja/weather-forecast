@@ -1,4 +1,4 @@
-import { LocationData } from '../models/location';
+import { Location } from '../models/location';
 import { Action } from '@ngrx/store';
 
 export enum LocationActionTypes {
@@ -12,7 +12,7 @@ export class GetLocation implements Action {
 
 export class LocationRecived implements Action {
   readonly type = LocationActionTypes.LocationRecived;
-  constructor( public payload: LocationData) {}
+  constructor( public payload: Location) {}
 }
 
 export type AppActions = GetLocation | LocationRecived;

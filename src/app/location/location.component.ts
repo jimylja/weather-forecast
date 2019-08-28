@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LocationService } from '../services/location.service';
-import { LocationData } from '../models/location';
+import { Location } from '../models/location';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from './../state/app.reducer';
 import * as LocationActions from '../state/app.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-location',
@@ -12,23 +12,14 @@ import * as LocationActions from '../state/app.actions';
 })
 export class LocationComponent implements OnInit {
 
+  curLocation$: Observable<Location>;
   constructor(
-    private store: Store<fromRoot.AppState>,
-    private locationService: LocationService) { }
+    private store: Store<fromRoot.AppState>) { }
 
   ngOnInit() {
 
     this.store.dispatch(new LocationActions.GetLocation());
-    // this.store.pipe(select(fromRoot.getCurrentLocation)).subscribe(
-    //   (location: LocationData) => {
-    //     console.log(location);
-    //   }
-    // );
-
-    // this.locationService.getLocationFromGeo().subscribe(
-    //   data => console.log(data)
-    // );
-    // this.store.dispatch( new LocationActions.LocationRecived( {lat: 222, lon: 333}));
+    this.curLocation$ = this.store.pipe(select(fromRoot.getCurrentLocation));
   }
 
 }

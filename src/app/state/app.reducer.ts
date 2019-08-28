@@ -1,20 +1,20 @@
 import { ActionReducerMap, MemoizedSelector } from '@ngrx/store';
-import { LocationData } from '../models/location';
+import { Location } from '../models/location';
 
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { AppActions, LocationActionTypes } from './app.actions';
 
 export interface LocationState {
-  location: LocationData;
+  location: Location;
 }
 
 export interface AppState {
-  location: LocationData;
+  location: Location;
 }
 
 export const initialAppState: AppState = {location: null};
 
-const getAppState = createFeatureSelector<AppState>('WeatherForecast App');
+const getAppState = createFeatureSelector<AppState>('app');
 export const getCurrentLocation = createSelector(
   getAppState,
   state => state.location
