@@ -1,0 +1,3 @@
+<ng-container *ngIf="(curLocation$ | async) as location">
+  <div>Місце: {{location.place.city}}, {{location.place.country}}</div>
+</ng-container>
