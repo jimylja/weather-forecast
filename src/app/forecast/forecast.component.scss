@@ -1,0 +1,18 @@
+:host{
+  display: grid;
+  grid-template: 75% 25% / repeat(5, 20%);
+  height: 400px;
+  border: 1px solid green;
+}
+
+app-weather-detail {
+  grid-column: 5 span;
+  grid-row: 1;
+  border: 1px solid red;
+}
+
+app-weather-preview {
+  grid-column: 1 span;
+  grid-row: 2;
+  border: 1px solid blue;
+}

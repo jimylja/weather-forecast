@@ -20,5 +20,4 @@ export class ForecastComponent implements OnInit {
       }
     );
   }
-
 }
