@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromForecast from './state/forecast.reducer';
+import * as fromRoot from '../state/app.reducer';
 import * as ForecastActions from './state/forecast.actions';
 
 @Component({
@@ -10,10 +11,14 @@ import * as ForecastActions from './state/forecast.actions';
 })
 export class ForecastComponent implements OnInit {
 
-  constructor( private store: Store<fromForecast.ForecastState>) { }
+  constructor(private store: Store<fromForecast.State>) { }
 
   ngOnInit() {
-
+    this.store.pipe(select(fromRoot.getCurrentLocation)).subscribe(
+      location => {
+        this.store.dispatch(new ForecastActions.GetForecast(location.coords));
+      }
+    );
   }
 
 }

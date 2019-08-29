@@ -1,3 +1,7 @@
+export interface DailyForecast {
+  [date: string]: Weather[];
+}
+
 export interface Weather {
   dt: number;
   dt_txt: string;

@@ -8,12 +8,16 @@ import { ForecastComponent } from './forecast.component';
 
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/forecast.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ForecastEffects } from './state/forecast.effects';
+
 
 @NgModule({
   declarations: [ForecastComponent, WeatherDetailComponent, WeatherPreviewComponent],
   imports: [
     CommonModule,
     ForecastRoutingModule,
+    EffectsModule.forFeature([ForecastEffects]),
     StoreModule.forFeature('dailyForecasts', reducer)
   ]
 })
