@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import * as fromForecast from './state/forecast.reducer';
+import * as ForecastActions from './state/forecast.actions';
 
 @Component({
   selector: 'app-forecast',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForecastComponent implements OnInit {
 
-  constructor() { }
+  constructor( private store: Store<fromForecast.ForecastState>) { }
 
   ngOnInit() {
+
   }
 
 }
