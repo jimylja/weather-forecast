@@ -1,3 +1,15 @@
+<div class="form-group">
+  <label>Оберіть місто</label>
+  <input type="text"
+        (keydown.enter)="$event.preventDefault()"
+        placeholder="Оберіть місце"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="off"
+        #search>
+</div>
+
 <ng-container *ngIf="(curLocation$ | async) as location">
   <div>Місце: {{location.place.city}}, {{location.place.country}}</div>
 </ng-container>
+
