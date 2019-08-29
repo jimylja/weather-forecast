@@ -1,2 +1,16 @@
-<app-location></app-location>
+<ng-container *ngIf="(currentPlace$ | async) as place">
+  <div class="place-container">
+    <div class="place-info">
+      <div class="city">{{place.city}}</div>
+      <div class="region">{{place.country}}</div>
+    </div>
+    <div class="change-place">
+        <label for="switcher">E</label>
+        <div class="checkbox-group">
+          <input type="checkbox" id="switcher" [(ngModel)]="isPlaceEdit" (change)="openPlacePicker()">
+        </div>
+    </div>
+  </div>
+</ng-container>
+
 <router-outlet></router-outlet>

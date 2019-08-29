@@ -1,0 +1,13 @@
+:host{
+  border: 5px solid green;
+
+  .place-container {
+    display: flex;
+    margin: 10px auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid yellow;
+  }
+}
+
