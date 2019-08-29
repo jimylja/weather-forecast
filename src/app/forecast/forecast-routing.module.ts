@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { ForecastComponent } from './forecast.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './forecast/forecast.module#ForecastModule'
-  },
+    component: ForecastComponent,
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class ForecastRoutingModule { }
