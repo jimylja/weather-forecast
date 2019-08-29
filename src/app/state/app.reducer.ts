@@ -1,4 +1,4 @@
-import { ActionReducerMap, MemoizedSelector } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 import { Location } from '../models/location';
 
 import { createSelector, createFeatureSelector } from '@ngrx/store';
