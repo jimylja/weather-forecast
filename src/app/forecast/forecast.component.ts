@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { DailyForecast } from '../models/weather';
+import { Observable } from 'rxjs';
+import { KeyValue } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import * as fromForecast from './state/forecast.reducer';
 import * as fromRoot from '../state/app.reducer';
 import * as ForecastActions from './state/forecast.actions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-forecast',
@@ -11,6 +15,7 @@ import * as ForecastActions from './state/forecast.actions';
 })
 export class ForecastComponent implements OnInit {
 
+  dailyForecast$: Observable<DailyForecast>;
   constructor(private store: Store<fromForecast.State>) { }
 
   ngOnInit() {
@@ -19,5 +24,16 @@ export class ForecastComponent implements OnInit {
         this.store.dispatch(new ForecastActions.GetForecast(location.coords));
       }
     );
+    this.dailyForecast$ = this.store.pipe(select(fromForecast.getDailyForecast));
+  }
+
+  changeDisplayedDate(date) {
+    this.store.dispatch(new ForecastActions.SetCurrentDate(date));
+  }
+
+  sortByDate = (a: KeyValue<string, string>, b: KeyValue<string, string>): number => {
+    const aMoment = moment(a.key, 'DD.MM.YYYY');
+    const bMoment = moment(b.key, 'DD.MM.YYYY');
+    return aMoment.isBefore(bMoment) ? -1 : (bMoment.isAfter(aMoment) ? 1 : 0);
   }
 }

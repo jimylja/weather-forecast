@@ -1,2 +1,8 @@
-<app-weather-detail></app-weather-detail>
-<app-weather-preview></app-weather-preview>
+<ng-container *ngIf="(dailyForecast$ | async) as dailyForecast">
+  <app-weather-detail></app-weather-detail>
+  <app-weather-preview *ngFor="let forecastForDay of dailyForecast | keyvalue: sortByDate"
+    (click)="changeDisplayedDate(forecastForDay.key)"
+    [forecast] = "forecastForDay.value"
+    [date] = "forecastForDay.key">
+  </app-weather-preview>
+</ng-container>

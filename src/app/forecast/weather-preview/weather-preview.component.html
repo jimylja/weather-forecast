@@ -1,1 +1,8 @@
-<p>weather-preview works!</p>
+<ng-container *ngIf="forecast">
+    <p>{{dayTitle}}</p>
+    <img src="http://openweathermap.org/img/wn/{{forecast[daytimeDataIndex].weather[0].icon}}.png" alt="Weather icon">
+    <div>
+      <span>{{daytimeTemperature}}</span>
+      <span>{{nightlyTemperature}}</span>
+    </div>
+  </ng-container>
