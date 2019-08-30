@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     loadChildren: './forecast/forecast.module#ForecastModule'
   },
+  {
+    path: 'location',
+    loadChildren: './location/location.module#LocationModule'
+  }
 ];
 
 @NgModule({

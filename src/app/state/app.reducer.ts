@@ -20,6 +20,11 @@ export const getCurrentLocation = createSelector(
   state => state.location
 );
 
+export const getCurrentPlace = createSelector(
+  getAppState,
+  state => state.location.place
+);
+
 export const reducers: ActionReducerMap<any> = {
   app: reducer
 };
