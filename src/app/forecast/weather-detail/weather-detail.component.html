@@ -4,11 +4,17 @@
 <ng-container *ngIf="weatherFullInfo">
   <div> {{dayTitle}} </div>
   <div> {{weatherGeneralInfo.weather[0].main}} </div>
-  <div>
-    <img src="http://openweathermap.org/img/wn/{{weatherGeneralInfo.weather[0].icon}}@2x.png" alt="Weather icon">
+  <div class="weather-main-data">
+    <div class="temperature-data">
+      <img src="http://openweathermap.org/img/wn/{{weatherGeneralInfo.weather[0].icon}}@2x.png" alt="Weather icon">
+      <span> {{(+weatherGeneralInfo.main.temp - 273.15) | number:'1.0-0'}}</span>
+    </div>
+    <div class="indexes-data">
+      <div> Вітер: {{weatherGeneralInfo.wind.speed | number:'1.0-0'}}км/год.</div>
+      <div> Вологість: {{weatherGeneralInfo.main.humidity}}%</div>
+      <div> Тиск: {{weatherGeneralInfo.main.pressure}}hPa</div>
+    </div>
   </div>
-  <div> {{(+weatherGeneralInfo.main.temp - 273.15) | number:'1.0-0'}}</div>
-  <div> Вітер: {{weatherGeneralInfo.wind.speed | number:'1.0-0'}}км/год.</div>
-  <div> Вологість: {{weatherGeneralInfo.main.humidity}}%</div>
-  <div> Тиск: {{weatherGeneralInfo.main.pressure}}hPa</div>
+  <div class="weather-extra-data"></div>
+
 </ng-container>

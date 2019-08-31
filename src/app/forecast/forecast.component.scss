@@ -4,13 +4,14 @@
   grid-gap: 5px;
   grid-template: 75% 20% / 1fr repeat(5, minmax(45px, 150px)) 1fr;
   height: 500px;
-  border: 1px solid green;
   align-items: center;
 }
 
 app-weather-detail {
   grid-column: 7 span;
   grid-row: 1;
+  padding: 10px;
+  align-self: flex-start;
 }
 
 app-weather-preview {
