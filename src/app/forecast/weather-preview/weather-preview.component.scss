@@ -1,0 +1,23 @@
+@import '../../../styles.scss';
+
+.weather-icon {
+  max-width: 64px;
+  max-height: 64px;
+  margin: auto;
+  img {
+    width: 100%;
+  }
+}
+.temperature-block {
+  width: 75%;
+  margin: 0 auto;
+  span {
+    display: inline-block;
+    padding: 0 5px;
+    text-align: center;
+  }
+  .daily-temperature{
+    color: $main-font-color;
+  }
+}
+

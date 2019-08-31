@@ -1,8 +1,10 @@
 <ng-container *ngIf="forecast">
-    <p>{{dayTitle}}</p>
-    <img src="http://openweathermap.org/img/wn/{{forecast[daytimeDataIndex].weather[0].icon}}.png" alt="Weather icon">
-    <div>
-      <span>{{daytimeTemperature}}</span>
-      <span>{{nightlyTemperature}}</span>
-    </div>
-  </ng-container>
+  <p>{{dayTitle}}</p>
+  <div class="weather-icon">
+    <img src="http://openweathermap.org/img/wn/{{forecast[daytimeDataIndex].weather[0].icon}}@2x.png" alt="Weather icon">
+  </div>
+  <div class="temperature-block">
+    <span class="daily-temperature">{{daytimeTemperature}}</span>
+    <span>{{nightlyTemperature}}</span>
+  </div>
+</ng-container>

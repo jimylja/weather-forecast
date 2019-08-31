@@ -2,9 +2,12 @@ $accent-bg-color: #0097f6;
 $accent-font-color: #fff;
 $main-bg-color: #fff;
 $main-font-color: #878787;
+$additional-details: #bababa;
 
 *{
-  box-sizing: border-box
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
