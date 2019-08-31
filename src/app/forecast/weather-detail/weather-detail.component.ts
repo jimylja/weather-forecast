@@ -14,6 +14,9 @@ export class WeatherDetailComponent implements OnInit {
   weatherGeneralInfo: Weather;
   dayTitle: string;
   daytimeDataIndex: number;
+  hourlyTemperatureMap: Map<string, number>;
+  hourlyHumidityMap: Map<string, number>;
+  displayedEtraData: Map<string, number>;
 
   constructor( private store: Store<fromForecast.State>) { }
   ngOnInit() {
@@ -26,7 +29,32 @@ export class WeatherDetailComponent implements OnInit {
       this.daytimeDataIndex = isCurrentDay ? 0 : 2;
       this.weatherFullInfo = weatherDetails;
       this.weatherGeneralInfo = weatherDetails[this.daytimeDataIndex];
+      const temperatureMap = new Map();
+      const humidityMap = new Map();
+      weatherDetails.forEach(
+        detailsForHour => {
+          const hour = moment(detailsForHour.dt_txt).format('LT');
+          const temperature = (detailsForHour.main.temp - 273).toFixed(0);
+          const humidity = (detailsForHour.main.humidity).toFixed(0);
+          temperatureMap.set(hour, temperature);
+          humidityMap.set(hour, humidity);
+        }
+      );
+      this.hourlyHumidityMap = humidityMap;
+      this.hourlyTemperatureMap = temperatureMap;
+      this.displayedEtraData = this.hourlyTemperatureMap;
+    });
+  }
+
+  displayExtra(dataType: string): void {
+    switch (dataType) {
+      case 'temperature':
+        this.displayedEtraData = this.hourlyTemperatureMap;
+        break;
+      case 'humidity':
+      default:
+        this.displayedEtraData = this.hourlyHumidityMap;
+        break;
     }
-);
   }
 }
