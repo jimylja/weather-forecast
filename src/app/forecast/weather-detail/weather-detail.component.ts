@@ -42,7 +42,19 @@ export class WeatherDetailComponent implements OnInit {
       );
       this.hourlyHumidityMap = humidityMap;
       this.hourlyTemperatureMap = temperatureMap;
-      this.displayedEtraData = this.hourlyHumidityMap;
+      this.displayedEtraData = this.hourlyTemperatureMap;
     });
+  }
+
+  displayExtra(dataType: string): void {
+    switch (dataType) {
+      case 'temperature':
+        this.displayedEtraData = this.hourlyTemperatureMap;
+        break;
+      case 'humidity':
+      default:
+        this.displayedEtraData = this.hourlyHumidityMap;
+        break;
+    }
   }
 }

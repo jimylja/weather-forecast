@@ -9,10 +9,20 @@
         <img src="http://openweathermap.org/img/wn/{{weatherGeneralInfo.weather[0].icon}}@2x.png" alt="Weather icon">
         <span> {{(+weatherGeneralInfo.main.temp - 273.15) | number:'1.0-0'}}</span>
       </div>
-      <div class="indexes-data">
-        <div> Вітер: {{weatherGeneralInfo.wind.speed | number:'1.0-0'}}км/год.</div>
-        <div> Вологість: {{weatherGeneralInfo.main.humidity}}%</div>
-        <div> Тиск: {{weatherGeneralInfo.main.pressure}}hPa</div>
+      <div class="extra-data-container">
+        <div class="indexes-data">
+            <div>Вітер: {{weatherGeneralInfo.wind.speed | number:'1.0-0'}}км/год.</div>
+            <div>Вологість: {{weatherGeneralInfo.main.humidity}}%</div>
+            <div>Тиск: {{weatherGeneralInfo.main.pressure}}hPa</div>
+        </div>
+        <div class="extra-data-switchers">
+          <div class="switcher"
+              [ngClass]="{active: displayedEtraData === hourlyTemperatureMap}"
+              (click)="displayExtra('temperature')">Температура</div>
+          <div class="switcher"
+               [ngClass]="{active: displayedEtraData === hourlyHumidityMap}"
+               (click)="displayExtra('humidity')">Вологість</div>
+        </div>
       </div>
     </div>
     <ng-container *ngIf="displayedEtraData">
