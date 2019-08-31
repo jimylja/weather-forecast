@@ -1,16 +1,20 @@
-<ng-container *ngIf="(currentPlace$ | async) as place">
-  <div class="place-container">
-    <div class="place-info">
-      <div class="city">{{place.city}}</div>
-      <div class="region">{{place.country}}</div>
+<div class="main-wrap">
+  <ng-container *ngIf="(currentPlace$ | async) as place">
+    <div class="place-container">
+      <div class="place-info">
+        <div class="city">{{place.city}}</div>
+        <div class="region">{{place.dist}}</div>
+      </div>
+      <div class="change-place">
+          <label for="switcher" title="Змінити місто">
+            <i class="material-icons">my_location</i>
+          </label>
+          <div class="checkbox-group">
+            <input type="checkbox" id="switcher" [(ngModel)]="isPlaceEdit" (change)="openPlacePicker()">
+          </div>
+      </div>
     </div>
-    <div class="change-place">
-        <label for="switcher">E</label>
-        <div class="checkbox-group">
-          <input type="checkbox" id="switcher" [(ngModel)]="isPlaceEdit" (change)="openPlacePicker()">
-        </div>
-    </div>
-  </div>
-</ng-container>
+  </ng-container>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

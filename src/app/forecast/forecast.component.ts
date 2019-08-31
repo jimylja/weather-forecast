@@ -16,6 +16,7 @@ import * as moment from 'moment';
 export class ForecastComponent implements OnInit {
 
   dailyForecast$: Observable<DailyForecast>;
+  activeDayPreview = 0;
   constructor(private store: Store<fromForecast.State>) { }
 
   ngOnInit() {
@@ -27,7 +28,8 @@ export class ForecastComponent implements OnInit {
     this.dailyForecast$ = this.store.pipe(select(fromForecast.getDailyForecast));
   }
 
-  changeDisplayedDate(date) {
+  changeDisplayedDate(date: string, index: number): void {
+    this.activeDayPreview = index;
     this.store.dispatch(new ForecastActions.SetCurrentDate(date));
   }
 
