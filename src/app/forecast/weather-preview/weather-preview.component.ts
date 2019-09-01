@@ -11,8 +11,8 @@ export class WeatherPreviewComponent implements OnInit {
   @Input() date: string;
 
   dayTitle: string;
-  nightlyTemperature: string;
-  daytimeTemperature: string;
+  nightlyTemperature: number;
+  daytimeTemperature: number;
   daytimeDataIndex: number;
 
   constructor() { }
@@ -24,8 +24,8 @@ export class WeatherPreviewComponent implements OnInit {
 
     this.dayTitle = curDate.format('dd');
     this.daytimeDataIndex = isCurrentDay ? 0 : 2;
-    this.daytimeTemperature = (this.forecast[this.daytimeDataIndex].main.temp - 273.15).toFixed(0);
-    this.nightlyTemperature = (this.forecast[this.forecast.length - 1].main.temp - 273.15).toFixed(0);
+    this.daytimeTemperature = (this.forecast[this.daytimeDataIndex].main.temp);
+    this.nightlyTemperature = (this.forecast[this.forecast.length - 1].main.temp);
   }
 
 }
