@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { KeyValue } from '@angular/common';
 import { DailyForecast } from '../models/weather';
 import { Observable } from 'rxjs';
-import { KeyValue } from '@angular/common';
+import { take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import * as fromForecast from './state/forecast.reducer';
-import * as fromRoot from '../state/app.reducer';
-import * as ForecastActions from './state/forecast.actions';
+import { RootStoreState, ForecastActions, LocationtSelectors, ForecastSelectors } from '../store';
 import * as moment from 'moment';
 
 @Component({
@@ -17,20 +16,21 @@ export class ForecastComponent implements OnInit {
 
   dailyForecast$: Observable<DailyForecast>;
   activeDayPreview = 0;
-  constructor(private store: Store<fromForecast.State>) { }
+  displayedDate = moment().format('DD.MM.YYYY');
+  constructor(private store: Store<RootStoreState.State>) { }
 
   ngOnInit() {
-    this.store.pipe(select(fromRoot.getCurrentLocation)).subscribe(
+    this.store.pipe(select(LocationtSelectors.getCurrentLocation), take(1)).subscribe(
       location => {
         this.store.dispatch(new ForecastActions.GetForecast(location.coords));
       }
     );
-    this.dailyForecast$ = this.store.pipe(select(fromForecast.getDailyForecast));
+    this.dailyForecast$ = this.store.pipe(select(ForecastSelectors.getDailyForecast));
   }
 
   changeDisplayedDate(date: string, index: number): void {
     this.activeDayPreview = index;
-    this.store.dispatch(new ForecastActions.SetCurrentDate(date));
+    this.displayedDate = date;
   }
 
   sortByDate = (a: KeyValue<string, string>, b: KeyValue<string, string>): number => {

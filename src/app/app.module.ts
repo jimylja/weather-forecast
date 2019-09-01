@@ -9,11 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from './state/app.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './state/app.effects';
-
+import { RootStoreModule } from './store/store.module';
 
 @NgModule({
   declarations: [
@@ -24,8 +20,7 @@ import { AppEffects } from './state/app.effects';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    StoreModule.forRoot(reducers, {}),
-    EffectsModule.forRoot([AppEffects]),
+    RootStoreModule,
     StoreDevtoolsModule.instrument({
       name: 'WeatherForecast App',
       maxAge: 30,

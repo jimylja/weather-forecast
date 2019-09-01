@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { Location } from '../models/location';
-import { Store, select } from '@ngrx/store';
-import * as fromRoot from './../state/app.reducer';
-import * as LocationActions from '../state/app.actions';
 import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { RootStoreState, LocationtActions, LocationtSelectors } from '../store';
 
 @Component({
   selector: 'app-location',
@@ -19,11 +18,11 @@ export class LocationComponent implements OnInit {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private store: Store<fromRoot.AppState>) { }
+    private store: Store<RootStoreState.State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new LocationActions.GetLocation());
-    this.curLocation$ = this.store.pipe(select(fromRoot.getCurrentLocation));
+    this.store.dispatch(new LocationtActions.GetLocation());
+    this.curLocation$ = this.store.pipe(select(LocationtSelectors.getCurrentLocation));
     this.initGooglePlaceSearch();
   }
 
@@ -45,7 +44,7 @@ export class LocationComponent implements OnInit {
 
           const placeSlices = place.formatted_address.split(', ');
           const [city, dist, country] = placeSlices;
-          this.store.dispatch(new LocationActions.LocationRecived({coords, place: {city, dist, country}}));
+          this.store.dispatch(new LocationtActions.LocationRecived({coords, place: {city, dist, country}}));
         });
       });
     });

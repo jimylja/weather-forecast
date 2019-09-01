@@ -5,7 +5,7 @@ import { Coordinates } from '../../models/location';
 export enum ForecastActionsTypes {
   GetForecast = '[Forecast] Get Daily Forecast',
   ForecastRecived = '[Forecast] Daily Forecast was successfully received',
-  SetDisplayedDate = '[Forecast] Set the date of the displayed weather details'
+  SetDisplayedExtraData = '[Forecast] Set the type of the displayed extra details'
 }
 export class GetForecast implements Action {
   readonly type = ForecastActionsTypes.GetForecast;
@@ -17,9 +17,9 @@ export class ForecastRecived implements Action {
   constructor(public payload: DailyForecast) {}
 }
 
-export class SetCurrentDate implements Action {
-  readonly type = ForecastActionsTypes.SetDisplayedDate;
+export class SetDisplayedExtraData implements Action {
+  readonly type = ForecastActionsTypes.SetDisplayedExtraData;
   constructor(public payload: string) {}
 }
 
-export type ForecastActions = GetForecast | ForecastRecived | SetCurrentDate;
+export type ForecastActions = GetForecast | ForecastRecived | SetDisplayedExtraData;

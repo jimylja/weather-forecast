@@ -1,31 +1,31 @@
-<div class="spiner" *ngIf="!weatherFullInfo">
-    очікую...
-  </div>
-  <ng-container *ngIf="weatherFullInfo">
-    <div> {{dayTitle}} </div>
-    <div> {{weatherGeneralInfo.weather[0].main}} </div>
-    <div class="weather-main-data">
-      <div class="temperature-data">
-        <img src="http://openweathermap.org/img/wn/{{weatherGeneralInfo.weather[0].icon}}@2x.png" alt="Weather icon">
-        <span> {{(+weatherGeneralInfo.main.temp - 273.15) | number:'1.0-0'}}</span>
+<div class="spiner" *ngIf="!weatherGeneralInfo">
+  очікую...
+ </div>
+<ng-container *ngIf="weatherGeneralInfo">
+  <div> {{dayTitle}} </div>
+  <div> {{weatherGeneralInfo.weather[0].main}} </div>
+  <div class="weather-main-data">
+    <div class="temperature-data">
+      <img src="http://openweathermap.org/img/wn/{{weatherGeneralInfo.weather[0].icon}}@2x.png" alt="Weather icon">
+      <span> {{(+weatherGeneralInfo.main.temp - 273.15) | number:'1.0-0'}}</span>
+    </div>
+    <div class="extra-data-container">
+      <div class="indexes-data">
+          <div>Вітер: {{weatherGeneralInfo.wind.speed | number:'1.0-0'}}км/год.</div>
+          <div>Вологість: {{weatherGeneralInfo.main.humidity}}%</div>
+          <div>Тиск: {{weatherGeneralInfo.main.pressure}}hPa</div>
       </div>
-      <div class="extra-data-container">
-        <div class="indexes-data">
-            <div>Вітер: {{weatherGeneralInfo.wind.speed | number:'1.0-0'}}км/год.</div>
-            <div>Вологість: {{weatherGeneralInfo.main.humidity}}%</div>
-            <div>Тиск: {{weatherGeneralInfo.main.pressure}}hPa</div>
-        </div>
-        <div class="extra-data-switchers">
-          <div class="switcher"
-              [ngClass]="{active: displayedEtraData === hourlyTemperatureMap}"
-              (click)="displayExtra('temperature')">Температура</div>
-          <div class="switcher"
-               [ngClass]="{active: displayedEtraData === hourlyHumidityMap}"
-               (click)="displayExtra('humidity')">Вологість</div>
-        </div>
+      <div class="extra-data-switchers">
+        <div class="switcher"
+            [ngClass]="{active: displayedExtraDataType === 'temperature'}"
+            (click)="switchDisplayingExtra('temperature')">Температура</div>
+        <div class="switcher"
+            [ngClass]="{active: displayedExtraDataType === 'humidity'}"
+            (click)="switchDisplayingExtra('humidity')">Вологість</div>
       </div>
     </div>
-    <ng-container *ngIf="displayedEtraData">
-      <app-extra-data [extraData]="displayedEtraData"></app-extra-data>
-    </ng-container>
+  </div>
+  <ng-container *ngIf="displayedExtraData">
+    <app-extra-data [extraData]="displayedExtraData"></app-extra-data>
   </ng-container>
+</ng-container>
