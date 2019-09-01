@@ -4,7 +4,7 @@
     <img src="http://openweathermap.org/img/wn/{{forecast[daytimeDataIndex].weather[0].icon}}@2x.png" alt="Weather icon">
   </div>
   <div class="temperature-block">
-    <span class="daily-temperature">{{daytimeTemperature}}</span>
-    <span>{{nightlyTemperature}}</span>
+    <span class="daily-temperature">{{daytimeTemperature | celsium}}</span>
+    <span>{{nightlyTemperature | celsium}}</span>
   </div>
 </ng-container>

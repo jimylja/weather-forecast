@@ -3,8 +3,9 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { RootStoreState, LocationtActions, LocationtSelectors } from './store';
-
+import { Location } from '@angular/common';
 import { Place } from './models/location';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,20 +17,23 @@ export class AppComponent implements OnInit {
   currentPlace$: Observable<Place>;
 
   constructor(
+    private location: Location,
     private router: Router,
     private store: Store<RootStoreState.State>) {}
 
   ngOnInit() {
-    this.isPlaceEdit = this.router.url.includes('/location');
+    this.isPlaceEdit = this.location.path().includes('/location');
     this.store.dispatch(new LocationtActions.GetLocation());
     this.currentPlace$ = this.store.pipe(select(LocationtSelectors.getCurrentPlace));
   }
 
   openPlacePicker() {
-    if (this.isPlaceEdit) {
+    this.isPlaceEdit = this.location.path().includes('/location');
+    if (!this.isPlaceEdit) {
       this.router.navigate(['/location']);
     } else {
       this.router.navigate(['/']);
     }
+    this.isPlaceEdit = !this.isPlaceEdit;
   }
 }

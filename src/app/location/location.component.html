@@ -1,10 +1,26 @@
 <div class="form-group">
   <label>Оберіть місто</label>
   <input type="text"
-        (keydown.enter)="$event.preventDefault()"
-        placeholder="Оберіть місце"
-        autocorrect="off"
-        autocapitalize="off"
-        spellcheck="off"
-        #search>
+    (keydown.enter)="$event.preventDefault()"
+    placeholder="Оберіть місце"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="off"
+    #search>
 </div>
+<ng-container *ngIf="curCoords">
+  <agm-map
+    [latitude]="curCoords.lat"
+    [longitude]="curCoords.lon"
+    [zoom]="mapZoom"
+    [zoomControl]="true"
+    (mapClick)="mapClicked($event)">
+    <agm-marker
+      [latitude]="curCoords.lat"
+      [longitude]="curCoords.lon"
+      [markerDraggable]="true"
+      (dragEnd)="markerDragEnd($event)">
+    </agm-marker>
+  </agm-map>
+</ng-container>
+<div (click)="onSetNewLocation()" class="access-button">Підтвердити</div>

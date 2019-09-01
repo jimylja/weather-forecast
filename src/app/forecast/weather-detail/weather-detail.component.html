@@ -7,7 +7,7 @@
   <div class="weather-main-data">
     <div class="temperature-data">
       <img src="http://openweathermap.org/img/wn/{{weatherGeneralInfo.weather[0].icon}}@2x.png" alt="Weather icon">
-      <span> {{(+weatherGeneralInfo.main.temp - 273.15) | number:'1.0-0'}}</span>
+      <span> {{weatherGeneralInfo.main.temp | celsium}}</span>
     </div>
     <div class="extra-data-container">
       <div class="indexes-data">

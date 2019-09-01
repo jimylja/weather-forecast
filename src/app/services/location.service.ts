@@ -59,7 +59,7 @@ export class LocationService {
     );
   }
 
-  private getLocationPlace( coords: { lat: number, lon: number}): Observable<Location> {
+  getLocationPlace( coords: { lat: number, lon: number}): Observable<Location> {
     return this.http.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         latlng: `${coords.lat},${coords.lon}`,

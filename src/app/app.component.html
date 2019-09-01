@@ -6,8 +6,11 @@
         <div class="region">{{place.dist}}</div>
       </div>
       <div class="change-place">
-          <label for="switcher" title="Змінити місто">
+          <label *ngIf="!isPlaceEdit" for="switcher" title="Змінити місто">
             <i class="material-icons">my_location</i>
+          </label>
+          <label *ngIf="isPlaceEdit" for="switcher" title="Змінити місто">
+            <i class="material-icons">undo</i>
           </label>
           <div class="checkbox-group">
             <input type="checkbox" id="switcher" [(ngModel)]="isPlaceEdit" (change)="openPlacePicker()">

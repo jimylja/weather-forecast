@@ -11,5 +11,5 @@ export interface Coordinates {
 
 export interface Location {
   coords: Coordinates;
-  place: Place;
+  place?: Place;
 }

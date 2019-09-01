@@ -1,0 +1,37 @@
+@import '../../styles.scss';
+:host{
+  height: 500px;
+  margin: 0 auto;
+  text-align: center;
+  .form-group {
+    margin: 0 auto;
+    text-align: center;
+    margin: 10px;
+    label {
+      margin: 0 10px;
+    }
+  }
+  agm-map {
+    display: block;
+    height: 450px;
+    padding: 0 10px;
+  }
+  .access-button {
+    margin: 10px auto;
+    height: 35px;
+    width: 100px;
+    line-height: 35px;
+    background-color: $accent-bg-color;
+    color: $accent-font-color;
+    border: 1px solid $accent-bg-color;
+    border-radius: 5px;
+    font-size: 0.75em;
+    &:hover {
+      cursor: pointer;
+      background-color: $main-bg-color;
+      color: $accent-bg-color;
+      border-color: $accent-bg-color;
+    }
+  }
+}
+
