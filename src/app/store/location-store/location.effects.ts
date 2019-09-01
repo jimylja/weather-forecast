@@ -11,15 +11,25 @@ export class LocationEffects {
     private actions$: Actions,
     private locationService: LocationService ) {}
 
-    @Effect()
-    getLocation$ = this.actions$.pipe(
-      ofType(AppActions.LocationActionTypes.GetLocation),
-      mergeMap((action: AppActions.GetLocation) => this.locationService.getLocation().pipe(
-        map( (location: Location) => {
-          localStorage.setItem('location', JSON.stringify(location));
-          return new AppActions.LocationRecived(location);
-        }
-        )
-      ))
-    );
+  @Effect()
+  getLocation$ = this.actions$.pipe(
+    ofType(AppActions.LocationActionTypes.GetLocation),
+    mergeMap((action: AppActions.GetLocation) => this.locationService.getLocation().pipe(
+      map( (location: Location) => {
+        localStorage.setItem('location', JSON.stringify(location));
+        return new AppActions.LocationRecived(location);
+      })
+    ))
+  );
+
+  @Effect()
+  getLocationPlace$ = this.actions$.pipe(
+    ofType(AppActions.LocationActionTypes.GetLocationPlace),
+    mergeMap((action: AppActions.GetLocationPlace) => this.locationService.getLocationPlace(action.payload).pipe(
+      map( (location: Location) => {
+        localStorage.setItem('location', JSON.stringify(location));
+        return new AppActions.LocationRecived(location);
+      })
+    ))
+  );
 }

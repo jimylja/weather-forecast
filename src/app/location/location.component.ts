@@ -22,7 +22,7 @@ export class LocationComponent implements OnInit {
 
   curCoords: Coordinates;
   selectedPlaceCoords: Coordinates;
-  newLocation: Location;
+  newLocation: Location = {coords: {lat: 0, lon: 0}};
   mapZoom = 8;
 
   @ViewChild('search', {static: true}) public searchElementRef: ElementRef;
@@ -33,7 +33,6 @@ export class LocationComponent implements OnInit {
     private store: Store<RootStoreState.State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new LocationtActions.GetLocation());
     this.store.pipe(select(LocationtSelectors.getCurrentLocation)).subscribe(
       (location: Location) => this.curCoords = location.coords
     );
@@ -67,15 +66,19 @@ export class LocationComponent implements OnInit {
 
   markerDragEnd(event: MapEventData): void {
     this.curCoords = { lat: event.coords.lat, lon: event.coords.lng};
-    this.newLocation = {coords: this.curCoords, place: {city: '', dist: '', country: ''}};
+    this.newLocation = {coords: this.curCoords};
   }
 
   mapClicked(event: MapEventData): void {
     this.curCoords = { lat: event.coords.lat, lon: event.coords.lng};
-    this.newLocation = {coords: this.curCoords, place: {city: '', dist: '', country: ''}};
+    this.newLocation = {coords: this.curCoords};
   }
 
   onSetNewLocation(): void {
-    this.store.dispatch(new LocationtActions.LocationRecived(this.newLocation));
+    if (this.newLocation.place) {
+      this.store.dispatch(new LocationtActions.LocationRecived(this.newLocation));
+    } else {
+      this.store.dispatch(new LocationtActions.GetLocationPlace(this.curCoords));
+    }
   }
 }
