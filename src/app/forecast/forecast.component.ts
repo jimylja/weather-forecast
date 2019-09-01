@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { KeyValue } from '@angular/common';
 import { DailyForecast } from '../models/weather';
 import { Observable } from 'rxjs';
-import { KeyValue } from '@angular/common';
+import { take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { RootStoreState, ForecastActions, LocationtSelectors, ForecastSelectors } from '../store';
 import * as moment from 'moment';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-forecast',
@@ -16,6 +16,7 @@ export class ForecastComponent implements OnInit {
 
   dailyForecast$: Observable<DailyForecast>;
   activeDayPreview = 0;
+  displayedDate = moment().format('DD.MM.YYYY');
   constructor(private store: Store<RootStoreState.State>) { }
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class ForecastComponent implements OnInit {
 
   changeDisplayedDate(date: string, index: number): void {
     this.activeDayPreview = index;
-    this.store.dispatch(new ForecastActions.SetCurrentDate(date));
+    this.displayedDate = date;
   }
 
   sortByDate = (a: KeyValue<string, string>, b: KeyValue<string, string>): number => {

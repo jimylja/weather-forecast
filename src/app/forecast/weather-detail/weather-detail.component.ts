@@ -1,60 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Weather } from '../../models/weather';
-import { Store, select } from '@ngrx/store';
-import { RootStoreState, ForecastSelectors } from '../../store';
+import { RootStoreState, ForecastSelectors, ForecastActions } from '../../store';
+import { combineLatest } from 'rxjs';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
+
+export interface ExtraData {
+  [type: string]: Map<string, number>;
+}
+
 @Component({
   selector: 'app-weather-detail',
   templateUrl: './weather-detail.component.html',
   styleUrls: ['./weather-detail.component.scss']
 })
-export class WeatherDetailComponent implements OnInit {
+
+export class WeatherDetailComponent implements OnChanges {
 
   weatherFullInfo: Weather[];
   weatherGeneralInfo: Weather;
   dayTitle: string;
   daytimeDataIndex: number;
-  hourlyTemperatureMap: Map<string, number>;
-  hourlyHumidityMap: Map<string, number>;
-  displayedEtraData: Map<string, number>;
+  displayedExtraDataType = 'temperature';
+  displayedExtraData: Map<string, number>;
+  extraData: ExtraData = { temperature: null, humidity: null };
+  @Input() displayedDate: string;
 
-  constructor( private store: Store<RootStoreState.State>) { }
-  ngOnInit() {
+  constructor( private store: Store<RootStoreState.State>) {
     moment.locale('uk');
-    this.store.pipe(select(ForecastSelectors.getCurrentDateForecast)).subscribe(
-    (weatherDetails: Weather[]) => {
+  }
+
+  ngOnChanges() {
+    combineLatest(
+      this.store.select(ForecastSelectors.getCurrentDateForecast, this.displayedDate),
+      this.store.select(ForecastSelectors.getDisplaedExtraDataType)
+    ).subscribe( selectedData => {
+      const weatherDetails: Weather[] = selectedData[0];
+      const displayedExtraDataType: string = selectedData[1];
       const displayedDate = moment(weatherDetails[0].dt_txt);
       const isCurrentDay = moment().isSame(displayedDate, 'date');
       this.dayTitle = displayedDate.format('dddd');
       this.daytimeDataIndex = isCurrentDay ? 0 : 2;
-      this.weatherFullInfo = weatherDetails;
+      this.generateExtraData(weatherDetails);
       this.weatherGeneralInfo = weatherDetails[this.daytimeDataIndex];
-      const temperatureMap = new Map();
-      const humidityMap = new Map();
-      weatherDetails.forEach(
-        detailsForHour => {
-          const hour = moment(detailsForHour.dt_txt).format('LT');
-          const temperature = (detailsForHour.main.temp - 273).toFixed(0);
-          const humidity = (detailsForHour.main.humidity).toFixed(0);
-          temperatureMap.set(hour, temperature);
-          humidityMap.set(hour, humidity);
-        }
-      );
-      this.hourlyHumidityMap = humidityMap;
-      this.hourlyTemperatureMap = temperatureMap;
-      this.displayedEtraData = this.hourlyTemperatureMap;
+      this.displayedExtraData = this.extraData[displayedExtraDataType];
     });
   }
 
-  displayExtra(dataType: string): void {
-    switch (dataType) {
-      case 'temperature':
-        this.displayedEtraData = this.hourlyTemperatureMap;
-        break;
-      case 'humidity':
-      default:
-        this.displayedEtraData = this.hourlyHumidityMap;
-        break;
+  generateExtraData(weatherDetails: Weather[]): void {
+    const temperatureMap = new Map();
+    const humidityMap = new Map();
+    weatherDetails.forEach(
+      detailsForHour => {
+        const hour = moment(detailsForHour.dt_txt).format('LT');
+        const temperature = (detailsForHour.main.temp - 273).toFixed(0);
+        const humidity = (detailsForHour.main.humidity).toFixed(0);
+        temperatureMap.set(hour, temperature);
+        humidityMap.set(hour, humidity);
+      }
+    );
+    this.extraData.temperature = temperatureMap;
+    this.extraData.humidity = humidityMap;
+  }
+  switchDisplayingExtra(dataType: 'temperature' | 'humidity'): void {
+    if (dataType !== this.displayedExtraDataType) {
+      this.store.dispatch(new ForecastActions.SetDisplayedExtraData(dataType));
+      this.displayedExtraDataType = dataType;
     }
   }
 }

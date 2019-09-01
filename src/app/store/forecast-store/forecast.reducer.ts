@@ -7,10 +7,10 @@ export function forecastReducer(state = initialState, action: ForecastActions): 
       return {
         ...state,
         forecast: action.payload};
-    case ForecastActionsTypes.SetDisplayedDate:
+    case ForecastActionsTypes.SetDisplayedExtraData:
       return {
         ...state,
-        displayedDate: action.payload
+        displayedExtraData: action.payload
       };
     case ForecastActionsTypes.GetForecast:
     default:

@@ -2,9 +2,9 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ForecastState } from './forecast.state';
 
 const getForecastState = createFeatureSelector<ForecastState>('dailyForecasts');
-export const getDisplaedDate = createSelector(
+export const getDisplaedExtraDataType = createSelector(
   getForecastState,
-  state => state.displayedDate
+  state => state.displayedExtraData
 );
 
 export const getDailyForecast = createSelector(
@@ -14,9 +14,10 @@ export const getDailyForecast = createSelector(
 
 export const getCurrentDateForecast = createSelector(
   getForecastState,
-  state => {
+  (state, props) => {
     if (state.forecast) {
-       return (state.forecast[state.displayedDate]);
+       return (state.forecast[props]);
     }
   }
 );
+
