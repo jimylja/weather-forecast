@@ -8,7 +8,7 @@ import { LocationComponent } from './location.component';
   declarations: [LocationComponent],
   imports: [
     CommonModule,
-    LocationRoutingModule
+    LocationRoutingModule,
   ]
 })
 export class LocationModule { }

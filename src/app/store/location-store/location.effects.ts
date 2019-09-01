@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { LocationService } from '../services/location.service';
-import * as AppActions from './app.actions';
+import { LocationService } from '../../services/location.service';
+import * as AppActions from './location.actions';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Location } from '../models/location';
+import { Location } from '../../models/location';
 import { mergeMap, map } from 'rxjs/operators';
 
 @Injectable()
-export class AppEffects {
+export class LocationEffects {
   constructor(
     private actions$: Actions,
     private locationService: LocationService ) {}

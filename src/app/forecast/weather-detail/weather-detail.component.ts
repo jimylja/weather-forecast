@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Weather } from '../../models/weather';
 import { Store, select } from '@ngrx/store';
-import * as fromForecast from '../state/forecast.reducer';
+import { RootStoreState, ForecastSelectors } from '../../store';
 import * as moment from 'moment';
 @Component({
   selector: 'app-weather-detail',
@@ -18,10 +18,10 @@ export class WeatherDetailComponent implements OnInit {
   hourlyHumidityMap: Map<string, number>;
   displayedEtraData: Map<string, number>;
 
-  constructor( private store: Store<fromForecast.State>) { }
+  constructor( private store: Store<RootStoreState.State>) { }
   ngOnInit() {
     moment.locale('uk');
-    this.store.pipe(select(fromForecast.getCurrentDateForecast)).subscribe(
+    this.store.pipe(select(ForecastSelectors.getCurrentDateForecast)).subscribe(
     (weatherDetails: Weather[]) => {
       const displayedDate = moment(weatherDetails[0].dt_txt);
       const isCurrentDay = moment().isSame(displayedDate, 'date');

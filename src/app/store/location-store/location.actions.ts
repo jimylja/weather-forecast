@@ -1,4 +1,4 @@
-import { Location } from '../models/location';
+import { Location } from '../../models/location';
 import { Action } from '@ngrx/store';
 
 export enum LocationActionTypes {
@@ -15,4 +15,4 @@ export class LocationRecived implements Action {
   constructor( public payload: Location) {}
 }
 
-export type AppActions = GetLocation | LocationRecived;
+export type LocationActions = GetLocation | LocationRecived;

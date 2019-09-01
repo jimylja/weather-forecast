@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import * as fromRoot from './state/app.reducer';
-import * as LocationActions from './state/app.actions';
+import { RootStoreState, LocationtActions, LocationtSelectors } from './store';
 
 import { Place } from './models/location';
 @Component({
@@ -18,12 +17,12 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private store: Store<fromRoot.AppState>) {}
+    private store: Store<RootStoreState.State>) {}
 
   ngOnInit() {
     this.isPlaceEdit = this.router.url.includes('/location');
-    this.store.dispatch(new LocationActions.GetLocation());
-    this.currentPlace$ = this.store.pipe(select(fromRoot.getCurrentPlace));
+    this.store.dispatch(new LocationtActions.GetLocation());
+    this.currentPlace$ = this.store.pipe(select(LocationtSelectors.getCurrentPlace));
   }
 
   openPlacePicker() {
