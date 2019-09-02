@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RootStoreModule } from './store/store.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { RootStoreModule } from './store/store.module';
       apiKey: 'AIzaSyBePK-HPIzCLejL8ceBclOAb39jgRWwsqU',
       libraries: ['places'],
       language: 'uk'
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
   ],
   providers: [],

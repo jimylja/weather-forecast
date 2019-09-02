@@ -8,7 +8,7 @@
     <div class="temperature-data">
       <img [@enterFromLeft]="weatherGeneralInfo.weather[0].icon"
             src="http://openweathermap.org/img/wn/{{weatherGeneralInfo.weather[0].icon}}@2x.png" alt="Weather icon">
-      <span [@enterFromRight]="weatherGeneralInfo.main.temp"> {{weatherGeneralInfo.main.temp | celsium}}</span>
+      <span [@enterFromRight]="weatherGeneralInfo.main.temp"> {{weatherGeneralInfo.main.temp | celsium : false}}</span>
     </div>
     <div class="extra-data-container">
       <div class="indexes-data">
