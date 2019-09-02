@@ -5,12 +5,34 @@ import { Store, select } from '@ngrx/store';
 import { RootStoreState, LocationtActions, LocationtSelectors } from './store';
 import { Location } from '@angular/common';
 import { Place } from './models/location';
+import { trigger, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('enterFromTop', [
+      transition('* => *',
+        animate(200,
+          keyframes([
+            style({ transform: 'translateX(-20px)', opacity: 0, offset: 0 }),
+            style({ transform: 'translateX(0px)', opacity: 1, offset: 0.8 })
+          ])
+        )
+      ),
+    ]),
+      trigger('flip', [
+        transition('* => *', animate(600,
+          keyframes([
+            style({ transform: 'rotateY(0)', opacity: 1, offset: 0 }),
+            style({ transform: 'rotateY(180deg)', filter: 'blur(1px)', opacity: 1, offset: 0.8 }),
+          ])
+        ))
+      ])
+  ]
 })
+
 export class AppComponent implements OnInit {
   title = 'weather-forecast';
   isPlaceEdit: boolean;

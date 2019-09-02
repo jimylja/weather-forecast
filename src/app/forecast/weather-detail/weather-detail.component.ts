@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Weather } from '../../models/weather';
 import { RootStoreState, ForecastSelectors, ForecastActions } from '../../store';
+import { trigger, style, transition, animate, keyframes, state } from '@angular/animations';
 import { combineLatest } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
@@ -12,7 +13,29 @@ export interface ExtraData {
 @Component({
   selector: 'app-weather-detail',
   templateUrl: './weather-detail.component.html',
-  styleUrls: ['./weather-detail.component.scss']
+  styleUrls: ['./weather-detail.component.scss'],
+  animations: [
+    trigger('enterFromRight', [
+      transition('* => *',
+        animate(400,
+          keyframes([
+            style({ transform: 'translateX(20px)', opacity: 0, offset: 0 }),
+            style({ transform: 'translateX(0px)', opacity: 1, offset: 0.8 })
+          ])
+        )
+      ),
+    ]),
+    trigger('enterFromLeft', [
+      transition('* => *',
+        animate(400,
+          keyframes([
+            style({ transform: 'translateX(-20px)', opacity: 0, offset: 0.3 }),
+            style({ transform: 'translateX(0px)', opacity: 1, offset: 0.8 })
+          ])
+        )
+      ),
+    ])
+  ]
 })
 
 export class WeatherDetailComponent implements OnChanges {
@@ -21,7 +44,7 @@ export class WeatherDetailComponent implements OnChanges {
   weatherGeneralInfo: Weather;
   dayTitle: string;
   daytimeDataIndex: number;
-  displayedExtraDataType = 'temperature';
+  displayedExtraDataType = 'humidity';
   displayedExtraData: Map<string, number>;
   extraData: ExtraData = { temperature: null, humidity: null };
   @Input() displayedDate: string;
