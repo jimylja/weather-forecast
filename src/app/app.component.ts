@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { RootStoreState, LocationtActions, LocationtSelectors } from './store';
 import { Location } from '@angular/common';
 import { Place } from './models/location';
-import { trigger, state, style, transition, animate, query, stagger, keyframes } from '@angular/animations';
+import { trigger, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
