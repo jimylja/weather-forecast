@@ -7,5 +7,5 @@ export interface ForecastState {
 
 export const initialState: ForecastState = {
   forecast: null,
-  displayedExtraData: 'temperature'
+  displayedExtraData: 'humidity'
 };

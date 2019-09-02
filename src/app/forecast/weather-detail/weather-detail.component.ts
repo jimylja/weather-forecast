@@ -21,7 +21,7 @@ export class WeatherDetailComponent implements OnChanges {
   weatherGeneralInfo: Weather;
   dayTitle: string;
   daytimeDataIndex: number;
-  displayedExtraDataType = 'temperature';
+  displayedExtraDataType = 'humidity';
   displayedExtraData: Map<string, number>;
   extraData: ExtraData = { temperature: null, humidity: null };
   @Input() displayedDate: string;

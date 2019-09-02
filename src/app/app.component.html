@@ -2,7 +2,7 @@
   <ng-container *ngIf="(currentPlace$ | async) as place">
     <div class="place-container">
       <div class="place-info">
-        <div class="city">{{place.city}}</div>
+        <div [@enterFromTop]="place.city" class="city">{{place.city}}</div>
         <div class="region">{{place.dist}}</div>
       </div>
       <div class="change-place">
@@ -18,6 +18,7 @@
       </div>
     </div>
   </ng-container>
-
-  <router-outlet></router-outlet>
+  <div [@flip]="isPlaceEdit">
+    <router-outlet></router-outlet>
+  </div>
 </div>
