@@ -1,0 +1,45 @@
+@import '../../../styles.scss';
+.weather-main-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (min-width: 480px) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .temperature-data {
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: 800;
+    color: #000;
+  }
+  .extra-data-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    .indexes-data {
+      max-width: 200px;
+     }
+    .extra-data-switchers {
+      .switcher {
+        color: #222;
+        margin: 5px;
+        padding: 0 5px;
+        font-size: 0.75em;
+        height: 25px;
+        line-height: 25px;
+        background-color: #f8f8f8;
+        border: 1px solid #c6c6c6;
+        cursor: pointer;
+        &:hover { border-bottom: 1px solid #222 ;}
+        &.active {
+          border: 1px solid $accent-bg-color!important;
+        }
+      }
+    }
+  }
+
+}

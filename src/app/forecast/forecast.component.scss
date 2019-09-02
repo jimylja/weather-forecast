@@ -1,0 +1,30 @@
+@import '../../styles.scss';
+:host{
+  display: grid;
+  grid-gap: 5px;
+  grid-template: 75% 20% / 1fr repeat(5, minmax(45px, 150px)) 1fr;
+  height: 500px;
+  align-items: center;
+}
+
+app-weather-detail {
+  grid-column: 7 span;
+  grid-row: 1;
+  padding: 10px;
+  align-self: flex-start;
+}
+
+app-weather-preview {
+  grid-row: 2;
+  text-align: center;
+  color: $additional-details;
+  cursor: pointer;
+  @for $i from 1 to 6 {
+    &:nth-of-type(#{$i}) { grid-column: #{$i + 1}; }
+  }
+  &.active {
+    background-color: #fcfcfc;
+    border: 1px solid $accent-bg-color;
+    border-radius: 2px;
+  }
+}

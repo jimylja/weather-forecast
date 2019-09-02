@@ -1,0 +1,32 @@
+<div class="spiner" *ngIf="!weatherGeneralInfo">
+  очікую...
+ </div>
+<ng-container *ngIf="weatherGeneralInfo">
+  <div> {{dayTitle}} </div>
+  <div> {{weatherGeneralInfo.weather[0].main}} </div>
+  <div class="weather-main-data">
+    <div class="temperature-data">
+      <img [@enterFromLeft]="weatherGeneralInfo.weather[0].icon"
+            src="http://openweathermap.org/img/wn/{{weatherGeneralInfo.weather[0].icon}}@2x.png" alt="Weather icon">
+      <span [@enterFromRight]="weatherGeneralInfo.main.temp"> {{weatherGeneralInfo.main.temp | celsium : false}}</span>
+    </div>
+    <div class="extra-data-container">
+      <div class="indexes-data">
+          <div>Вітер: {{weatherGeneralInfo.wind.speed | number:'1.0-0'}}км/год.</div>
+          <div>Вологість: {{weatherGeneralInfo.main.humidity}}%</div>
+          <div>Тиск: {{weatherGeneralInfo.main.pressure}}hPa</div>
+      </div>
+      <div class="extra-data-switchers">
+        <div class="switcher"
+            [ngClass]="{active: displayedExtraDataType === 'temperature'}"
+            (click)="switchDisplayingExtra('temperature')">Температура</div>
+        <div class="switcher"
+            [ngClass]="{active: displayedExtraDataType === 'humidity'}"
+            (click)="switchDisplayingExtra('humidity')">Вологість</div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="displayedExtraData">
+    <app-extra-data [extraData]="displayedExtraData"></app-extra-data>
+  </ng-container>
+</ng-container>
