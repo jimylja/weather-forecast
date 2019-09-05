@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Weather } from '../../models/weather';
 import { RootStoreState, ForecastSelectors, ForecastActions } from '../../store';
-import { trigger, style, transition, animate, keyframes, state } from '@angular/animations';
+import { trigger, style, transition, animate, keyframes, } from '@angular/animations';
 import { combineLatest } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
