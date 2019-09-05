@@ -40,7 +40,6 @@ export interface ExtraData {
 
 export class WeatherDetailComponent implements OnChanges {
 
-  weatherFullInfo: Weather[];
   weatherGeneralInfo: Weather;
   dayTitle: string;
   daytimeDataIndex: number;
@@ -49,9 +48,7 @@ export class WeatherDetailComponent implements OnChanges {
   extraData: ExtraData = { temperature: null, humidity: null };
   @Input() displayedDate: string;
 
-  constructor( private store: Store<RootStoreState.State>) {
-    moment.locale('uk');
-  }
+  constructor( private store: Store<RootStoreState.State>) {}
 
   ngOnChanges() {
     combineLatest(

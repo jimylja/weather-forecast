@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Weather } from '../../models/weather';
 import * as moment from 'moment';
+
 @Component({
   selector: 'app-weather-preview',
   templateUrl: './weather-preview.component.html',
@@ -15,10 +16,9 @@ export class WeatherPreviewComponent implements OnInit {
   daytimeTemperature: number;
   daytimeDataIndex: number;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    moment.locale('uk');
     const curDate = moment(this.date, 'DD.MM.YYYY');
     const isCurrentDay = curDate.isSame(moment(), 'date');
 
@@ -27,5 +27,4 @@ export class WeatherPreviewComponent implements OnInit {
     this.daytimeTemperature = (this.forecast[this.daytimeDataIndex].main.temp);
     this.nightlyTemperature = (this.forecast[this.forecast.length - 1].main.temp);
   }
-
 }

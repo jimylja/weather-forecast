@@ -3,7 +3,10 @@ import { MapsAPILoader } from '@agm/core';
 import { Location, Coordinates } from '../models/location';
 import { Store, select } from '@ngrx/store';
 import { RootStoreState, LocationtActions, LocationtSelectors } from '../store';
+import {} from '@agm/core/services/google-maps-types';
+/// <reference types=”@types/googlemaps” />
 
+declare var google: any;
 export interface MapEventData {
   coords: {
     lat: number;
@@ -21,7 +24,6 @@ export interface MapEventData {
 export class LocationComponent implements OnInit {
 
   curCoords: Coordinates;
-  selectedPlaceCoords: Coordinates;
   newLocation: Location = {coords: {lat: 0, lon: 0}};
   mapZoom = 8;
 
@@ -45,16 +47,13 @@ export class LocationComponent implements OnInit {
 
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          const place = autocomplete.getPlace();
 
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
 
-          const lat = place.geometry.location.lat();
-          const lon = place.geometry.location.lng();
-          const coords = { lat,  lon };
-
+          const coords = { lat: place.geometry.location.lat(),  lon: place.geometry.location.lng() };
           const placeSlices = place.formatted_address.split(', ');
           const [city, dist, country] = placeSlices;
           this.curCoords = coords;

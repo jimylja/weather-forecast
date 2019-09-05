@@ -3,7 +3,6 @@ import { NgModule, } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
-import { AgmCoreModule } from '@agm/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,15 +28,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       maxAge: 30,
       logOnly: environment.production
     }),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBePK-HPIzCLejL8ceBclOAb39jgRWwsqU',
-      libraries: ['places'],
-      language: 'uk'
-    }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
