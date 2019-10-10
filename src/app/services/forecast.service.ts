@@ -28,23 +28,20 @@ export class ForecastService {
     );
   }
 
-  agregateForecastByDate(data: Array<Weather>): DailyForecast {
+  private agregateForecastByDate(data: Array<Weather>): DailyForecast {
     let curDate = moment(data[0].dt_txt);
     let groupedData = [];
-    const result = {};
-    data.forEach(
-      date => {
-        const isSameDates = curDate.isSame(moment(date.dt_txt), 'date');
+    return data.reduce(
+      (result, item) => {
+        const isSameDates = curDate.isSame(moment(item.dt_txt), 'date');
         if (isSameDates) {
-          groupedData.push(date);
+          groupedData.push(item);
         } else {
           result[curDate.format('DD.MM.YYYY')] = groupedData;
-          curDate = moment(date.dt_txt);
+          curDate = moment(item.dt_txt);
           groupedData = [];
         }
-      }
-    );
-    return result;
+        return result;
+      }, {});
   }
-
 }

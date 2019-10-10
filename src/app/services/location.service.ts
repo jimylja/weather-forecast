@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Location, Coordinates } from '../models/location';
 import { Observable, of } from 'rxjs';
-import { catchError, mergeMap, map } from 'rxjs/operators';
+import { catchError, mergeMap as switchMap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class LocationService {
     if (localStorage.getItem('location') === null) {
       if (navigator.geolocation) {
         return this.getCoordsFromGeo().pipe(
-          mergeMap(
+          switchMap(
             curCoords => this.getLocationPlace(curCoords)
           )
         );
@@ -48,7 +48,7 @@ export class LocationService {
   private getCoordsFromIp(): Observable<Coordinates> {
     const curentIP$ = this.http.get('https://jsonip.com/');
     return curentIP$.pipe(
-      mergeMap( (ip: {ip: string}) => this.http.get(`http://ip-api.com/json/${ip.ip}`).pipe(
+      switchMap( (ip: {ip: string}) => this.http.get(`http://ip-api.com/json/${ip.ip}`).pipe(
         map(
           (location: any) => {
             const coordinates = {lon: location.lon, lat: location.lat};

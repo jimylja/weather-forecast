@@ -6,6 +6,7 @@ import { RootStoreState, LocationtActions, LocationtSelectors } from './store';
 import { Location } from '@angular/common';
 import { Place } from './models/location';
 import { trigger, style, transition, animate, keyframes } from '@angular/animations';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -41,7 +42,9 @@ export class AppComponent implements OnInit {
   constructor(
     private location: Location,
     private router: Router,
-    private store: Store<RootStoreState.State>) {}
+    private store: Store<RootStoreState.State>) {
+      moment.locale('uk');
+    }
 
   ngOnInit() {
     this.isPlaceEdit = this.location.path().includes('/location');

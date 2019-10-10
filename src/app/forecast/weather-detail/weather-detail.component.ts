@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Weather } from '../../models/weather';
 import { RootStoreState, ForecastSelectors, ForecastActions } from '../../store';
-import { trigger, style, transition, animate, keyframes, state } from '@angular/animations';
+import { trigger, style, transition, animate, keyframes, } from '@angular/animations';
 import { combineLatest } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
@@ -40,7 +40,6 @@ export interface ExtraData {
 
 export class WeatherDetailComponent implements OnChanges {
 
-  weatherFullInfo: Weather[];
   weatherGeneralInfo: Weather;
   dayTitle: string;
   daytimeDataIndex: number;
@@ -49,9 +48,7 @@ export class WeatherDetailComponent implements OnChanges {
   extraData: ExtraData = { temperature: null, humidity: null };
   @Input() displayedDate: string;
 
-  constructor( private store: Store<RootStoreState.State>) {
-    moment.locale('uk');
-  }
+  constructor( private store: Store<RootStoreState.State>) {}
 
   ngOnChanges() {
     combineLatest(

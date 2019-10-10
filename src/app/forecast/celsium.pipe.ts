@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CelsiumPipe implements PipeTransform {
 
-  transform(value: any, displaySign: boolean): string {
+  transform(value: any, displaySign: boolean = false): string {
     let celsiumValue = (+value - 273.15).toFixed(0);
     if (displaySign) {
       celsiumValue += '℃';
